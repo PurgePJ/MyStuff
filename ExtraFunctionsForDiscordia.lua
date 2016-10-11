@@ -29,6 +29,55 @@ function FileExist(path)
 end
 
 -- end of File functions
+-- start of some string / table functions
+
+function SplitText(P)
+    local i = #P
+    local ch = P:sub(i,i)
+    while i > 0 and ch ~= '.' do
+        if ch == sep or ch == other_sep then
+            return P,''
+        end
+        i = i - 1
+        ch = P:sub(i,i)
+    end
+    if i == 0 then
+        return P,''
+    else
+        return P:sub(1,i-1),P:sub(i)
+    end
+end
+
+local function quote (v)
+    if type(v) == 'string' then
+        return ('%q'):format(v)
+    else
+        return tostring(v)
+    end
+end
+
+--[[
+x1 is start value
+x2 is end value
+s is step (increment)
+Ex: range(2,10) is {2,3,4,5,6,7,8,9,10}
+Ex: range(5) is {1,2,3,4,5}
+]]
+function Range (x1,x2,s)  -- for Python users ;)
+    if not x2 then
+        x2 = x1
+        x1 = 1
+    end
+    s = s or 1
+    local res,k = {},1
+    for x = x1,x2,s do
+        res[k] = x
+        k = k + 1
+    end
+    return res
+end
+
+--end of functions related to strings and tables
 
 -- op is just a table with simple mathematical operations
 op = {
@@ -45,7 +94,7 @@ op = {
 }
 
 -- Applies a given function on every element in a given table and returns a new table
--- EXAMPLE: map(function(x) return x*x end, {1, 2, 3, 4}) => 1, 4, 9, 16
+-- Ex: map(function(x) return x*x end, {1, 2, 3, 4}) => 1, 4, 9, 16
 function map(func, tbl)
     local newtbl = {}
     for v in pairs(tbl) do
@@ -56,7 +105,7 @@ end
 
 
 -- Applies a given function on every element in a given table and returns a new table with all elements where the function returned true
--- EXAMPLE: filter(function(x) return x > 2 end, {1, 2, 3, 4}) => 3, 4
+-- Ex: filter(function(x) return x > 2 end, {1, 2, 3, 4}) => 3, 4
 function filter(func, tbl)
     local newtbl= {}
     for v in pairs(tbl) do
@@ -107,7 +156,7 @@ end
 
 
 -- Returns all elements except the first of a given table
--- EXAMPLE: tail({1, 2, 3, 4}) => 2, 3, 4
+-- Ex: tail({1, 2, 3, 4}) => 2, 3, 4
 function tail(tbl)
     if #tbl < 1 then
         return nil
@@ -121,3 +170,4 @@ function tail(tbl)
         return newtbl
     end
 end
+
