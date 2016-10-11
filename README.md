@@ -1,1 +1,3 @@
-# Everything related to LoL Scripts
+# My stuff
+
+gonna post here anything that doesn't fit in other repositories.
