@@ -25,8 +25,9 @@ end
 local function UpdateLib.CompareVersionAsync(localVersion, webVersion, fileLink)
 	if localVersion and webVersion then
 		if localVersion ~= Get(webVersion, false) then
+			print("Name of the file that will be downloaded as an update (dont write .lua).")
 			local name = io.read()
-			WriteFile(name, Get(nil, true, fileLink))
+			WriteFile(name..".lua", Get(nil, true, fileLink))
 		end
 	end
 end
