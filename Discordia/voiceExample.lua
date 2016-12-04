@@ -7,14 +7,47 @@ discordia.loadFFmpeg('ffmpeg')
 local client = discordia.Client()
 local voice = discordia.VoiceClient()
 
+local clients = {}
+
+local function getReady()
+	for i =  1, client.guildCount do
+		print("Adding voice client number: ".. i)
+		clients[i] = { 
+			[1] = discordia.VoiceClient(),
+			[2] = 0
+		}
+	end
+end
+
+local function Event(instance)
+	instance:on('connect', function()
+	    instance:play('fya.mp3')
+	end)
+end
+
+local function Check()
+	for k, Container in pairs(clients) do
+		for vClient, nCheck in pairs(Container) do
+			print("vClient: "..tostring(vClient).."   ".."nCheck: "..tostring(nCheck))
+			if clients[k][2] == 0 then
+				clients[k][2] = 1
+				Event(nCheck)
+				return nCheck
+			end
+		end
+	end
+end
+
+local function join(client, id)
+	Check():joinChannel(client:getVoiceChannel(id))
+end
+
 client:on('ready', function()
+	getReady()
     printf('Logged in as %s', client.user.username)
-    voice:joinChannel(client:getVoiceChannel('85482585546833920'))
+    join(client, "85482585546833920")
 end)
 
-voice:on('connect', function()
-    voice:play('song.mp3')
-end)
 
 client:on('messageCreate', function(message)
 	local cmd, arg = string.match(message.content, '(%S+) (.*)')
@@ -40,7 +73,4 @@ client:on('messageCreate', function(message)
 		end
 	end
 end)
-
-
-
 client:run("YourToken")
