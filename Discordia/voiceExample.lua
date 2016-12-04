@@ -28,7 +28,6 @@ end
 local function Check()
 	for k, Container in pairs(clients) do
 		for vClient, nCheck in pairs(Container) do
-			print("vClient: "..tostring(vClient).."   ".."nCheck: "..tostring(nCheck))
 			if clients[k][2] == 0 then
 				clients[k][2] = 1
 				Event(nCheck)
@@ -44,8 +43,8 @@ end
 
 client:on('ready', function()
 	getReady()
-    printf('Logged in as %s', client.user.username)
-    join(client, "85482585546833920")
+	printf('Logged in as %s', client.user.username)
+	join(client, "85482585546833920")
 end)
 
 
@@ -73,4 +72,7 @@ client:on('messageCreate', function(message)
 		end
 	end
 end)
-client:run("YourToken")
+
+
+
+client:run("Token")
