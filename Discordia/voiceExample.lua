@@ -22,7 +22,7 @@ end
 
 local function Event(instance)
 	instance:on('connect', function()
-	    instance:play('fya.mp3')
+	    instance:play('song.mp3')
 	end)
 end
 
@@ -50,13 +50,14 @@ local function Check(guildName, id)
 end
 
 local function join(client, id, guildName)
+	guildName = guildName or ""
 	Check(guildName, id):joinChannel(client:getVoiceChannel(id))
 end
 
 client:on('ready', function()
 	getReady()
-	printf('Logged in as %s', client.user.username)
-	join(client, "85482585546833920", )
+	print('Logged in as %s', client.user.username)
+	join(client, "85482585546833920")
 end)
 
 
@@ -65,9 +66,10 @@ client:on('messageCreate', function(message)
 	cmd = cmd or message.content
 
 	if cmd == ".join" then
+		print(arg or "not found")
 		local success, data = client._api:getChannel(arg)
-		if succes then
-			voice:joinChannel(client:getVoiceChannel(arg))
+		if success then
+			join(client, arg, data.name)
 			message.channel:sendMessage("Joined "..data.name.." channel.")
 		else
 			message.channel:sendMessage("Channel not found.")
@@ -75,16 +77,10 @@ client:on('messageCreate', function(message)
 	end
 
 	if cmd == ".play" then
-		suc, er = pcall(voice:play(arg))
-		if suc then
-			voice:stop()
-			message.channel:sendMessage("Playing "..arg.." song.")
-		else
-			message.channel:sendMessage(er)
-		end
+		Check(message.guild.name, message.channel.name):play(arg)
+		message.channel:sendMessage("Playing "..arg.." song.")
 	end
 end)
-
 
 
 client:run("Token")
