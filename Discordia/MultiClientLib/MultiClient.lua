@@ -5,11 +5,7 @@ local Started = 0
 local function getReady(gCount, discordia)
 	for i =  1, gCount do
 		print("Adding voice client number: ".. i)
-		clients[i] = { 
-			[1] = discordia.VoiceClient(),
-			[2] = 0,
-			[3] = "",
-		}
+		clients[i] = {discordia.VoiceClient(), 0,"",}
 	end
 end
 
