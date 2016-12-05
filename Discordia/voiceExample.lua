@@ -32,9 +32,8 @@ local function Channel(id)
 end
 
 local function Play(voice, song)
-	--local stream = voice:createFFmpegStream(song)
-    --stream:play()
-    voice:play(song)
+    local stream = voice:createFFmpegStream(song)
+    stream:play()
 end
 
 local function Check(guildName, id) -- maybe guildId ?
