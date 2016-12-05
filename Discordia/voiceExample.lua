@@ -22,7 +22,7 @@ end
 
 local function Event(instance)
 	instance:on('connect', function()
-	    instance:play('song.mp3')
+	    Play(instance, 'fya.mp3')
 	end)
 end
 
@@ -31,17 +31,25 @@ local function Channel(id)
 	return data
 end
 
-local function Check(guildName, id)
+local function Play(voice, song)
+	--local stream = voice:createFFmpegStream(song)
+    --stream:play()
+    voice:play(song)
+end
+
+local function Check(guildName, id) -- maybe guildId ?
 	for k, Container in pairs(clients) do
 		for nCheck, vClient in pairs(Container) do
 			if clients[k][3] == guildName then
 				Event(vClient)
+				vClient:setBitrate(96000)
 				return vClient
 			else
 				if clients[k][2] == 0 then
 					clients[k][2] = 1
-					clients[k][3] = Channel(id).name
+					clients[k][3] = guildName
 					Event(vClient)
+					vClient:setBitrate(96000)
 					return vClient
 				end
 			end
@@ -77,8 +85,8 @@ client:on('messageCreate', function(message)
 	end
 
 	if cmd == ".play" then
-		Check(message.guild.name, message.channel.name):play(arg)
 		message.channel:sendMessage("Playing "..arg.." song.")
+		Play(Check(message.guild.name, message.channel.id), arg)
 	end
 end)
 
