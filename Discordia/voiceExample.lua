@@ -14,7 +14,8 @@ local function getReady()
 		print("Adding voice client number: ".. i)
 		clients[i] = { 
 			[1] = discordia.VoiceClient(),
-			[2] = 0
+			[2] = 0,
+			[3] = "",
 		}
 	end
 end
@@ -25,26 +26,37 @@ local function Event(instance)
 	end)
 end
 
-local function Check()
+local function Channel(id)
+	local success, data = client._api:getChannel(id)
+	return data
+end
+
+local function Check(guildName, id)
 	for k, Container in pairs(clients) do
-		for vClient, nCheck in pairs(Container) do
-			if clients[k][2] == 0 then
-				clients[k][2] = 1
-				Event(nCheck)
-				return nCheck
+		for nCheck, vClient in pairs(Container) do
+			if clients[k][3] == guildName then
+				Event(vClient)
+				return vClient
+			else
+				if clients[k][2] == 0 then
+					clients[k][2] = 1
+					clients[k][3] = Channel(id).name
+					Event(vClient)
+					return vClient
+				end
 			end
 		end
 	end
 end
 
-local function join(client, id)
-	Check():joinChannel(client:getVoiceChannel(id))
+local function join(client, id, guildName)
+	Check(guildName, id):joinChannel(client:getVoiceChannel(id))
 end
 
 client:on('ready', function()
 	getReady()
 	printf('Logged in as %s', client.user.username)
-	join(client, "85482585546833920")
+	join(client, "85482585546833920", )
 end)
 
 
