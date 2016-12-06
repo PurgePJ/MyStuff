@@ -15,7 +15,7 @@ end)
 
 
 client:on('messageCreate', function(message)
-	if message.channel.id == "81402706320699392" then
+	if message.channel.id == "81402706320699392" and message.author.id == "191442101135867906" then
 
 		local cmd, arg = string.match(message.content, '(%S+) (.*)')
 		cmd = cmd or message.content
@@ -36,7 +36,7 @@ client:on('messageCreate', function(message)
 
 		if cmd == ".play" then
 			message.channel:sendMessage("Playing "..arg.." song.")
-
+			client:setGameName("Playing "..arg.." song.")
 			local stream = MultiClientGiver:createFFmpegStream(arg)
 			stream:play()
 		end
