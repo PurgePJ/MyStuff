@@ -9,16 +9,16 @@ local function getReady(gCount, discordia)
 	end
 end
 
-function MultiClient:VoiceClient(discordia, gName, gCount, fn, bitrate) -- maybe guildId ?
-	__fn__ = fn or p("Voice client succesfully used for "..gName.." guild.")
+function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe guildId ?
 	__bitrate__ = bitrate or 96000
+	_G.gName = gName
 	if Started == 0 then
 		getReady(gCount, discordia)
 	end
 	for k, Container in pairs(clients) do
 		for nCheck, vClient in pairs(Container) do
 			if clients[k][3] == gName then
-				MultiClient:Event(vClient, __fn__)
+				MultiClient:Event(vClient)
 				vClient:setBitrate(__bitrate__)
 				Started = 1
 				return vClient
@@ -26,7 +26,7 @@ function MultiClient:VoiceClient(discordia, gName, gCount, fn, bitrate) -- maybe
 				if clients[k][2] == 0 then
 					clients[k][2] = 1
 					clients[k][3] = gName
-					MultiClient:Event(vClient, __fn__)
+					MultiClient:Event(vClient)
 					vClient:setBitrate(__bitrate__)
 					Started = 1
 					return vClient
@@ -40,6 +40,8 @@ function MultiClient:Event(instance, fn)
 	instance:on('connect', function()
 		if fn then
 			pcall(fn)
+		else
+			p("Voice client succesfully used for "..gName.." guild.")
 		end
 	end)
 end
