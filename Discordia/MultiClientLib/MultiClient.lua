@@ -5,11 +5,12 @@ local Started = 0
 local function getReady(gCount, discordia)
 	for i =  1, gCount do
 		print("Adding voice client number: ".. i)
-		clients[i] = {discordia.VoiceClient(), 0, "",}
+		clients[i] = {discordia.VoiceClient(), 0, ""}
 	end
 end
 
-function MultiClient:VoiceClient(discordia, gName, gCount) -- maybe guildId ?
+function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe guildId ?
+	bitrate = bitrate or 96000
 	if Started == 0 then
 		getReady(gCount, discordia)
 	end
@@ -17,7 +18,7 @@ function MultiClient:VoiceClient(discordia, gName, gCount) -- maybe guildId ?
 		for nCheck, vClient in pairs(Container) do
 			if clients[k][3] == gName then
 				MultiClient:Event(vClient)
-				vClient:setBitrate(96000)
+				vClient:setBitrate(bitrate)
 				Started = 1
 				return vClient
 			else
@@ -25,7 +26,7 @@ function MultiClient:VoiceClient(discordia, gName, gCount) -- maybe guildId ?
 					clients[k][2] = 1
 					clients[k][3] = gName
 					MultiClient:Event(vClient)
-					vClient:setBitrate(96000)
+					vClient:setBitrate(bitrate)
 					Started = 1
 					return vClient
 				end
