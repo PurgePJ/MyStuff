@@ -23,10 +23,8 @@ function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe gui
 				return vClient
 			else
 				if clients[k][2] == 0 then
-					clients[k][2] = 1
-					clients[k][3] = gName
+					clients[k][2], clients[k][3], Started = 1, gName, 1
 					vClient:setBitrate(__bitrate__)
-					Started = 1
 					return vClient
 				end
 			end
