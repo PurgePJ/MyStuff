@@ -4,7 +4,7 @@ local Started = 0
 
 local function getReady(gCount, discordia)
 	for i =  1, gCount do
-		print("Adding voice client number: ".. i)
+		print("Adding voice client number: " .. i)
 		clients[i] = {discordia.VoiceClient(), 0, ""}
 	end
 end
@@ -37,7 +37,7 @@ function MultiClient:Event(instance, fn)
 		if fn then
 			pcall(fn)
 		else
-			p("Voice client succesfully used for "..gName.." guild.")
+			p("Voice client succesfully used for ".. gName .. " guild.")
 		end
 	end)
 end
