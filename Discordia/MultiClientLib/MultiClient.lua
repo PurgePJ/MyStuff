@@ -18,7 +18,6 @@ function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe gui
 	for k, Container in pairs(clients) do
 		for nCheck, vClient in pairs(Container) do
 			if clients[k][3] == gName then
-				MultiClient:Event(vClient)
 				vClient:setBitrate(__bitrate__)
 				Started = 1
 				return vClient
@@ -26,7 +25,6 @@ function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe gui
 				if clients[k][2] == 0 then
 					clients[k][2] = 1
 					clients[k][3] = gName
-					MultiClient:Event(vClient)
 					vClient:setBitrate(__bitrate__)
 					Started = 1
 					return vClient
