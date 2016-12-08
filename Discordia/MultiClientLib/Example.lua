@@ -35,7 +35,6 @@ client:on('messageCreate', function(message)
 			end
 		end
 
-
 		if cmd == ".play" then
 			message.channel:sendMessage("Playing "..arg.." song.")
 			client:setGameName("Playing "..arg.." song.")
