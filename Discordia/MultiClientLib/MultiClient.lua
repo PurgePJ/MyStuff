@@ -23,7 +23,7 @@ local function EmulateEvent(client)
 	return con
 end
 
-function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe guildId ?
+function MultiClient:VoiceClient(discordia, gName, gCount) -- maybe guildId ?
 	Ready(gCount, discordia)
 	for k, Container in pairs(clients) do
 		for nCheck, vClient in pairs(Container) do
