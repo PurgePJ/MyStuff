@@ -28,7 +28,7 @@ function MultiClient:VoiceClient(discordia, gName, gCount, bitrate) -- maybe gui
 	for k, Container in pairs(clients) do
 		for nCheck, vClient in pairs(Container) do
 			if clients[k][3] == gName then
-				return vClient, EmulateEvent(vClient)
+				return vClient, con
 			elseif clients[k][2] == 0 then
 				clients[k][2], clients[k][3] = 1, gName
 				local connection = EmulateEvent(vClient)
