@@ -26,7 +26,7 @@ local function GenerateNew(discordia, token)
 	if clients[botNumber][2] == 1 then 
 		botNumber = botNumber + 1
 	end
-	if not fs.existsSync("accounts.txt") then return end
+	if not fs.existsSync("Clients.txt") then return end
 	for line in io.lines("Clients.txt") do
 		if line:find(token) then
 			return clients[botNumber][1]
