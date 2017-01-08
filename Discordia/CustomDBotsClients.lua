@@ -4,7 +4,7 @@ local json, fs = require("json"), require("fs")
 
 local function getReady(discordia)
 	for i =  1, 200 do
-		clients[i] = {discordia.VoiceClient(), 0}
+		clients[i] = {discordia.Client(), 0}
 	end
 end
 
