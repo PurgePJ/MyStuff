@@ -10,7 +10,7 @@ end
 
 local function Ready(discordia)
 	if Started == 0 then
-		getReady( discordia)
+		getReady(discordia)
 		Started = 1
 	end
 end
