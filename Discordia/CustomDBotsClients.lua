@@ -1,6 +1,5 @@
 local MultiClient, clients = {}, {}
-local Started = 0
-local botNumber = 1
+local Started, botNumber = 0, 1
 local json, fs = require("json"), require("fs")
 
 local function getReady(discordia)
